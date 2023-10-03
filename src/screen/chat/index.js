@@ -10,6 +10,7 @@ import {
   Platform,
   Image,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 //import style sheet
 import Styles from './styles';
@@ -43,11 +44,24 @@ const ChatScreen = () => {
 
   // Delete data from Array
   const deleteMessage = index => {
-    messages.splice(index, 1);
-    let messageArray = JSON.stringify(messages);
-    let JsonParse = JSON.parse(messageArray);
-    setMessages(JsonParse);
-    longPressOnMessage(-1);
+    Alert.alert('Delete', 'Are you sure you want to delete?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          messages.splice(index, 1);
+          let messageArray = JSON.stringify(messages);
+          let JsonParse = JSON.parse(messageArray);
+          setMessages(JsonParse);
+          longPressOnMessage(-1);
+        },
+        style: 'destructive',
+      },
+    ]);
   };
 
   // Render Delete icon view
@@ -56,7 +70,7 @@ const ChatScreen = () => {
       return (
         <TouchableOpacity
           style={Styles.deleteView}
-          key={index}
+          key={'delete_' + index}
           onPress={() => deleteMessage(index)}>
           <Image
             source={require('../../assets/delete_icon.png')}
