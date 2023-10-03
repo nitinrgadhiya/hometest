@@ -81,7 +81,7 @@ const ChatScreen = () => {
         data={messages}
         style={Styles.flex1}
         keyExtractor={item => item.id.toString()}
-        inverted={true}
+        inverted={true} //Reverse list
         renderItem={({item, index}) => (
           <View style={Styles.messageView}>
             {renderDeleteIcon(index)}
